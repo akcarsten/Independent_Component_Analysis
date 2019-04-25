@@ -28,8 +28,10 @@ The ICA is based on a generative model. This means that it assumes an underlying
 
 The above equations implies that if we invert *A* and multiply it with the observed signals x we will retrieve our sources:
 
-<h3 align="center">![png](images/02.png)</h3>
-<h3 align="center">![png](images/03.png)</h3>
+![png](images/02.png)
+
+
+![png](images/03.png)
 
 This means that what our ICA algorithm needs to estimate is *W*.
 
@@ -243,11 +245,11 @@ def whiten(x):
 Now it is time to look at the actual ICA algorithm. As discussed above one precondition for the ICA algorithm to work is that the source signals are non-Gaussian. Therefore the result of the ICA should return sources that are as non-Gaussian as possible. To achieve this we need a measure of Gaussianity. One way is Kurtosis and it could be used here but another way has proven more efficient. Nevertheless we will have a look at kurtosis at the end of this notebook.
 For the actual algorithm however we will use the equations g and g'.
 
-<h3 align="center">![png](images/07.png)</h3>
+![png](images/07.png)
 
 These equations allow an approximation of negentropy and will be used in the below ICA algorithm which is [based on a fixed-point iteration scheme](https://homepage.math.uiowa.edu/~whan/072.d/S3-4.pdf):
 
-<h3 align="center">![png](images/08.png)</h3>
+![png](images/08.png)
 
 
 So according to the above what we have to do is to take a random guess for the weights of each component. The dot product of the random weights and the mixed signals is passed into the two functions g and g'. We then subtract the result of g' from g and calculate the mean. The result is our new weights vector. Next we could directly divide the new weights vector by its norm and repeat the above until the weights do not change anymore. There would be nothing wrong with that. However the problem we are facing here is that in the iteration for the second component we might identify the same component as in the first iteration. To solve this problem we have to decorrelate the new weights from the previously identified weights. This is what is happening in the step between updating the weights and dividing by their norm.
@@ -314,7 +316,7 @@ Xw, whiteM = whiten(Xc)
 
 Above we mentioned that the covariance matrix of the whitened signal should equal the identity matrix:
 
-<h3 align="center">![png](images/05.png)</h3>
+![png](images/05.png)
 
 ...and as we can see below this is correct.
 
