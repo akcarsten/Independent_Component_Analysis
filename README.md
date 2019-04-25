@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 
 The ICA is based on a generative model. This means that it assumes an underlying process that generates the observed data. The ICA model is simple, it assumes that some independent source signals *s* are linear combined by a mixing matrix A.
 
-<h3 align="center">![png](images/01.png)</h3>
+![png](images/01.png)
 
 ### Retrieving the components
 
